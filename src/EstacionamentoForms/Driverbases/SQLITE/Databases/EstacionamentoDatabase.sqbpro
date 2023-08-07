@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/rafael.deroncio/Desktop/Rafael/Gama/GitHubGrupo/UpSkilling/Anima.Upskilling.Gama.Grupo.Exercicios/EstacionamentoForms/Driverbases/SQLITE/Databases/EstacionamentoDatabase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="4433"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainClientes"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Clientes" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="142"/><column index="3" value="122"/><column index="4" value="137"/><column index="5" value="126"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Movimentacaos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="143"/><column index="3" value="203"/><column index="4" value="237"/><column index="5" value="178"/><column index="6" value="230"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Veiculos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="55"/><column index="3" value="52"/><column index="4" value="100"/><column index="5" value="73"/><column index="6" value="126"/><column index="7" value="88"/><column index="8" value="119"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="dumpestacionamentodatabase.sql">DROP TABLE IF EXISTS Clientes;
+DROP TABLE IF EXISTS Veiculos;
+DROP TABLE IF EXISTS Tickets;
+DROP TABLE IF EXISTS Movimentacoes;
+Commit;
+
+CREATE TABLE IF NOT EXISTS Clientes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    NomeCompleto TEXT NOT NULL,
+    Cpf TEXT NOT NULL,
+    NumeroCelular TEXT NOT NULL,
+    DataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS Veiculos (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Placa TEXT NOT NULL,
+    Cor TEXT NOT NULL,
+    Fabricante TEXT NOT NULL,
+    Modelo TEXT NOT NULL,
+    DataCadastro TEXT NOT NULL,
+    IdCliente INTEGER NOT NULL,
+	NomeCliente TEXT NOT NULL,
+	FOREIGN KEY (IdCliente) REFERENCES Clientes (Id)
+);
+CREATE TABLE IF NOT EXISTS Tickets (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Ativo INTEGER NOT NULL DEFAULT 0,
+    ValorPorMinuto TEXT NOT NULL DEFAULT 0,
+	TempoEstacionado TEXT NOT NULL DEFAULT 0,
+	ValorTicket TEXT NOT NULL DEFAULT 0,
+    Entrada DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Saida DATETIME,
+    IdCliente INTEGER NOT NULL,
+	NomeCliente TEXT NOT NULL DEFAULT 0,
+    IdVeiculo INTEGER NOT NULL,
+	DescricaoVeiculo TEXT NOT NULL DEFAULT 0,
+    FOREIGN KEY (IdCliente) REFERENCES Clientes (Id),
+    FOREIGN KEY (IdVeiculo) REFERENCES Veiculos (Id)
+);
+CREATE TABLE IF NOT EXISTS Movimentacoes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ValorPorMinuto TEXT NOT NULL,
+    TotalVagasDisponiveis TEXT NOT NULL,
+    TotalVeiculosEstacionados TEXT NOT NULL,
+    TemVagaDisponivel INTEGER NOT NULL,
+    DataCadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+Commit;</sql><sql name="SQL 3">PRAGMA table_info(Clientes)</sql><current_tab id="0"/></tab_sql></sqlb_project>
